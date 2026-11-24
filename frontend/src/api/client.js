@@ -28,7 +28,14 @@ export async function api(caminho, { method = 'GET', body } = {}) {
 
   const dados = await resposta.json().catch(() => null);
   if (!resposta.ok) {
-    throw new ApiError(dados?.erro || 'Erro inesperado', resposta.status, dados?.detalhes || []);
+    // 5xx sem corpo JSON da nossa API = o proxy não achou o backend (desligado ou em outra porta).
+    if (!dados?.erro && resposta.status >= 500) {
+      throw new ApiError(
+        'A API não respondeu. Verifique se o backend está rodando (npm run dev na pasta backend, porta 3333).',
+        resposta.status
+      );
+    }
+    throw new ApiError(dados?.erro || `Erro inesperado (código ${resposta.status})`, resposta.status, dados?.detalhes || []);
   }
   return dados;
 }
