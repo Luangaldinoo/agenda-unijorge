@@ -1,0 +1,21 @@
+{
+  "name": "agenda-unijorge-backend",
+  "version": "1.0.0",
+  "description": "API REST da Agenda UniJorge: eventos e seus participantes (1:N)",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test \"tests/**/*.test.js\""
+  },
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "sequelize": "^6.37.8",
+    "sqlite3": "^6.0.1"
+  },
+  "devDependencies": {
+    "supertest": "^7.3.2"
+  },
+  "private": true
+}
